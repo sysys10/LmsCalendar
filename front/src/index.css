@@ -1,0 +1,86 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+/* Pretendard 폰트 import */
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css");
+
+/* 라이트 모드 */
+:root {
+  /* 배경색: 하양 */
+  --background: 255, 255, 255;
+
+  /* 테두리: 밝은 회색 */
+  --border: 212, 212, 212; /* #D4D4D4 */
+  /* 카드 배경: 흰색 */
+  --card: 252, 252, 252; /* #FFFFFF */
+
+  --active: 219, 234, 254;
+  /* 주요 텍스트: 거의 검정 */
+  --copy-primary: 23, 23, 23; /* #171717 */
+  /* 부가 텍스트: 회색 */
+  --copy-secondary: 115, 115, 115; /* #737373 */
+
+  --hover: 243, 244, 246;
+  /* 주요 액션 버튼: 파란색 */
+  --cta: 37, 99, 235; /* #2563EB */
+  /* 활성화된 액션 버튼: 진한 파란색 */
+  --cta-active: 29, 78, 216; /* #1D4ED8 */
+  /* 버튼 텍스트: 흰색 */
+  --cta-text: 255, 255, 255; /* #FFFFFF */
+
+  background: rgba(var(--background));
+}
+
+/* 다크 모드 */
+.dark {
+  /* 배경색: 검정 */
+  --background: 18, 18, 18;
+
+  --active: 38, 38, 38;
+
+  --hover: 243, 244, 246;
+
+  /* 테두리: 매우 어두운 회색 */
+  --border: 38, 38, 38; /* #262626 */
+  /* 카드 배경: 거의 검정 */
+  --card: 23, 23, 23; /* #171717 */
+
+  /* 주요 텍스트: 거의 흰색 */
+  --copy-primary: 250, 250, 250; /* #FAFAFA */
+  /* 부가 텍스트: 회색 */
+  --copy-secondary: 115, 115, 115; /* #737373 */
+
+  /* 주요 액션 버튼: 밝은 파란색 */
+  --cta: 59, 130, 246; /* #3B82F6 */
+  /* 활성화된 액션 버튼: 파란색 */
+  --cta-active: 37, 99, 235; /* #2563EB */
+  /* 버튼 텍스트: 흰색 */
+  --cta-text: 255, 255, 255; /* #FFFFFF */
+
+  background: rgba(var(--background));
+}
+
+/* 빨간색 테마 */
+.red {
+  /* 배경색: 매우 연한 빨간색 */
+  --background: 254, 202, 202; /* #FECACA */
+
+  /* 테두리: 진한 빨간색 */
+  --border: 185, 28, 28; /* #B91C1C */
+  /* 카드 배경: 빨간색 */
+  --card: 239, 68, 68; /* #EF4444 */
+
+  /* 주요 텍스트: 거의 흰색 */
+  --copy-primary: 250, 250, 250; /* #FAFAFA */
+  /* 부가 텍스트: 매우 연한 빨간색 */
+  --copy-secondary: 254, 226, 226; /* #FEE2E2 */
+
+  /* 주요 액션 버튼: 흰색 */
+  --cta: 250, 250, 250; /* #FAFAFA */
+  /* 활성화된 액션 버튼: 연한 빨간색 */
+  --cta-active: 254, 226, 226; /* #FEE2E2 */
+  /* 버튼 텍스트: 빨간색 */
+  --cta-text: 239, 68, 68; /* #EF4444 */
+
+  background: rgba(var(--background));
+}
