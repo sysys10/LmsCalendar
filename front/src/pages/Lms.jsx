@@ -79,9 +79,7 @@ export default function Lms() {
 
         {data && (
           <div className="mt-4 p-4 bg-gray-50 rounded-lg">
-            <h3 className="text-lg font-medium text-gray-900 mb-2">
-              조회 결과
-            </h3>
+            <p className="text-lg font-medium text-gray-900 mb-2">조회 결과</p>
             <pre className="text-sm text-gray-600 overflow-auto">
               {JSON.stringify(data, null, 2)}
             </pre>

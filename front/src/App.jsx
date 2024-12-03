@@ -5,6 +5,7 @@ import SignUp from "./pages/auth/SignUp";
 import MyCalendar from "./pages/Calendar";
 import Lms from "./pages/Lms";
 import Navigate from "./components/Navigate";
+import Lme from "./pages/Lme";
 
 function App() {
   return (
@@ -13,7 +14,7 @@ function App() {
         <Route exact path="/" element={<Home />} />
         <Route path="/calendar" element={<MyCalendar />} />
         <Route path="/lms" element={<Lms />} />
-        <Route path="/lme" element={<></>} />
+        <Route path="/lme" element={<Lme />} />
       </Route>
       <Route path="/signup" element={<SignUp />} />
       <Route path="/kakao/oauth/redirect" element={<KakaoRedirect />} />
