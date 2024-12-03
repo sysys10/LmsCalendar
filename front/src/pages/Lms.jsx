@@ -22,13 +22,13 @@ export default function Lms() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center p-4">
-      <div className="max-w-md w-full space-y-8 bg-white p-8 rounded-lg shadow-lg">
+    <div className="min-h-screen bg-background flex flex-col items-center p-4">
+      <div className="max-w-md w-full space-y-8 bg-card p-8 rounded-lg shadow-border shadow-lg mt-20">
         <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+          <h2 className="mt-6 text-center text-3xl font-extrabold text-copy-primary">
             LMS 로그인
           </h2>
-          <p className="mt-2 text-center text-sm text-gray-600">
+          <p className="mt-2 text-center text-sm text-copy-secondary">
             학번과 비밀번호를 입력해주세요
           </p>
         </div>
@@ -45,7 +45,7 @@ export default function Lms() {
                 required
                 value={id}
                 onChange={(e) => setId(e.target.value)}
-                className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
+                className="appearance-none relative block w-full px-3 py-2 border border-border/50 placeholder-gray-500 text-gray-900 rounded focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
                 placeholder="학번"
               />
             </div>

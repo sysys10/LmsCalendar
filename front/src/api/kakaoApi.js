@@ -18,4 +18,6 @@ const postKakaoLogout = async () => {
   return data;
 };
 
+// const postMyData
+
 export { getKakaoUrl, postKakaoLogout, postKakaoAuthAndUserData };

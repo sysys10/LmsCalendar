@@ -7,7 +7,7 @@ const ToggleTheme = () => {
   return (
     <button
       onClick={toggleDarkMode}
-      className={`w-16 h-8 rounded-full shadow-lg bg-white relative`}
+      className={`w-16 h-8 rounded-full outline-border/30 outline shadow-lg bg-white relative`}
     >
       <div
         className={`w-8 h-8 rounded-full transition-transform duration-200 ease-in-out flex items-center justify-center text-white

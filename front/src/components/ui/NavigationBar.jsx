@@ -56,12 +56,15 @@ const NavigationBar = () => {
 
       {/* 모바일 메뉴 */}
       <div
-        className={`md:hidden fixed inset-0 z-30 bg-card transform transition-transform duration-300 ${
+        className={`md:hidden fixed inset-0 p-4 z-30 bg-card transform transition-transform duration-300 ${
           isMenuOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
-        <div onClick={() => setIsMenuOpen(false)}>
-          <Icons name="x" size="40" />
+        <div className="flex items-center justify-between">
+          <div onClick={() => setIsMenuOpen(false)}>
+            <Icons name="x" size="40" />
+          </div>
+          <ToggleTheme />
         </div>
         <Profile user={user} />
         <div className="mt-10 px-4">

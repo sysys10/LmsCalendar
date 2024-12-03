@@ -7,7 +7,26 @@ export default function MyCalendar() {
   const calendarRef = useRef(null);
   const [selectedView, setSelectedView] = useState("month");
   const [selectedDateRangeText, setSelectedDateRangeText] = useState("");
-
+  const initialEvents = [
+    {
+      id: "1",
+      calendarId: "personal",
+      title: "알고리즘 분석",
+      category: "time",
+      start: new TZDate("2024-12-03T16:00:00"),
+      end: new TZDate("2024-12-03T18:00:00"),
+      backgroundColor: "rgb(191,219,254)",
+    },
+    {
+      id: "2",
+      calendarId: "personal",
+      title: "시험기간",
+      category: "time",
+      start: new TZDate("2024-12-08T16:00:00"),
+      end: new TZDate("2024-12-16T18:00:00"),
+      backgroundColor: "rgb(191,219,254)",
+    },
+  ];
   const calendars = [
     {
       id: "kakao",
@@ -183,6 +202,7 @@ export default function MyCalendar() {
             month={{
               startDayOfWeek: 0,
             }}
+            events={initialEvents} // 여기 추가
             useDetailPopup={true}
             useFormPopup={true}
             calendars={calendars}
