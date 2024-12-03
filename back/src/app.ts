@@ -7,7 +7,12 @@ const app = express();
 dotenv.config();
 const PORT = process.env.PORT || 3000;
 
-app.use(cors({ origin: ["http://www.localhost:5173"], credentials: true }));
+app.use(
+  cors({
+    origin: ["http://localhost:5173", "http://www.localhost:5173"],
+    credentials: true,
+  })
+);
 app.use(express.json());
 
 // 로깅 세팅
