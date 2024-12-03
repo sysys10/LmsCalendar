@@ -6,7 +6,7 @@ import useForm from "../hooks/useForm";
 import CustomButton from "./common/CustomButton";
 import { useNavigate } from "react-router-dom";
 import { useKakaoLogin } from "../hooks/useKakaoLogin";
-import { customStyles } from "./modal/style";
+import { customStyles } from "./common/modal/style";
 
 const LoginModal = ({ modalIsOpen, setModalIsOpen }) => {
   const navigate = useNavigate();

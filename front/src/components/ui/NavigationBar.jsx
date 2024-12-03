@@ -2,14 +2,12 @@
 import { Link, useLocation } from "react-router-dom";
 import Icons from "../common/Icons";
 import { leftSideElements } from "../../constants/sidebarList";
-import useDarkMode from "../../hooks/useTheme";
 import ToggleTheme, { FancyToggleTheme } from "./ToggleTheme";
 import CustomButton from "../common/CustomButton";
 import { useState } from "react";
 import LoginModal from "../LoginForm";
 import useUserStore from "../../stores/userStore";
 import Profile from "./Profile";
-import { useKakaoLogin } from "../../hooks/useKakaoLogin";
 
 const NavigationBar = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
