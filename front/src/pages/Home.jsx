@@ -18,7 +18,7 @@ const Section = ({ children, delay = 0 }) => (
 // 프로필 카드 컴포넌트
 const ProfileCard = ({ user }) => (
   <motion.div
-    className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-purple-500/10 to-cyan-500/10 p-[2px]"
+    className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-purple-500/10 to-cyan-500/10 p-4"
     whileHover={{ scale: 1.02 }}
   >
     <motion.div

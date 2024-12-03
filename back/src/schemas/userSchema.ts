@@ -12,6 +12,7 @@ const UserSchema = new mongoose.Schema<User>(
     login_id: {
       type: String,
       unique: true,
+      sparse: true, // 이 부분 추가
     },
     nickname: String,
     password: String, // hashed 카카오 로그인은 password 불필요

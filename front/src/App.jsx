@@ -5,6 +5,7 @@ import LeftSidebar from "./components/ui/Sidebar";
 import NavigationBar from "./components/ui/NavigationBar";
 import SignUp from "./pages/auth/SignUp";
 import MyCalendar from "./pages/Calendar";
+import Lms from "./pages/Lms";
 
 const Navigate = () => {
   return (
@@ -27,7 +28,7 @@ function App() {
       <Route element={<Navigate />}>
         <Route exact path="/" element={<Home />} />
         <Route path="/calendar" element={<MyCalendar />} />
-        <Route path="/lms" element={<Home />} />
+        <Route path="/lms" element={<Lms />} />
         <Route path="/lme" element={<Home />} />
       </Route>
       <Route path="/signup" element={<SignUp />} />
