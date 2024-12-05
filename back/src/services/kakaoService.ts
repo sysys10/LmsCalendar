@@ -17,7 +17,6 @@ async function handleKakaoAuth(
 ): Promise<LoginResponse> {
   try {
     let user = await findUserWithKakaoId(kakaoId);
-
     if (!user) {
       user = await createKakaoUser(
         kakaoId,

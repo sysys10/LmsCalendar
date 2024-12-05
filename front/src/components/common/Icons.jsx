@@ -6,7 +6,8 @@ import {
   BsSun,
   BsMoon,
   BsList,
-  BsX
+  BsX,
+  BsBoxArrowUp,
 } from "react-icons/bs";
 
 const icons = {
@@ -16,6 +17,7 @@ const icons = {
   heart: BsHeart,
   sun: BsSun,
   moon: BsMoon,
+  export: BsBoxArrowUp,
   x: BsX,
   menu: BsList,
 };
@@ -23,13 +25,17 @@ const icons = {
 export default function Icons({ name, className = "", size = "20" }) {
   const Icon = icons[name];
   return (
-    <Icon 
+    <Icon
       className={`inline-flex justify-center items-center ${className}`}
-      size={size} 
+      size={size}
     />
   );
 }
 
 // 사용 예시:
-{/* <Icons name="x" size="24" className="text-2xl" /> */}
-{/* <div className="pt-20 px-4"> */}
+{
+  /* <Icons name="x" size="24" className="text-2xl" /> */
+}
+{
+  /* <div className="pt-20 px-4"> */
+}

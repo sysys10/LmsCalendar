@@ -6,7 +6,7 @@ const CustomButton = ({
   disable = false,
   ...props
 }) => {
-  //sm 구현까지
+  //sm 해야함
   const className = `font-bold py-2 px-4 rounded transition-colors duration-150
       ${size === "lg" ? "w-full" : "px-4 py-2"} 
       ${
