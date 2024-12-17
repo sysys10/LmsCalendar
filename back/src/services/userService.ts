@@ -1,9 +1,12 @@
 import { v4 as uuidv4 } from "uuid";
-import { LoginResponse } from "../interfaces/User";
+import { LoginResponse, User as UserType } from "../interfaces/User";
 import { generateAccessToken, generateRefreshToken } from "../utils/jwtUtils";
 import bcrypt from "bcrypt";
 import User from "../models/user";
-import { findUserWithLoginId } from "../utils/kakaoauth";
+import {
+  findKakaoRefreshWithUser,
+  findUserWithLoginId,
+} from "../utils/kakaoauth";
 // 먼저 타입 정의
 interface SignUpResult {
   user_id: string;
@@ -77,4 +80,13 @@ async function signInUser(
   }
 }
 
-export { createLocalUser, signInUser };
+const findRefreshTokenWithUserId = async (user_id: string) => {
+  try {
+    const user: UserType | null = await findKakaoRefreshWithUser(user_id);
+    return user?.kakao_refresh_token;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export { createLocalUser, signInUser, findRefreshTokenWithUserId };

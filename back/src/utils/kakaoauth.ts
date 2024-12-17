@@ -16,6 +16,13 @@ async function findUserWithLoginId(login_id: string) {
   });
 }
 
+async function findKakaoRefreshWithUser(user_id: string) {
+  return await User.findOne({
+    login_id: user_id,
+    provider: "kakao",
+  });
+}
+
 // 유저 생성 함수
 async function createKakaoUser(
   kakaoId: string,
@@ -78,6 +85,7 @@ function createLoginResponse(
 }
 
 export {
+  findKakaoRefreshWithUser,
   createKakaoUser,
   createLoginResponse,
   findUserWithKakaoId,

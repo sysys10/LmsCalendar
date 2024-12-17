@@ -1,9 +1,9 @@
 import { motion } from "framer-motion";
 import useUserStore from "../stores/userStore";
 import { RECOMMENDED_CONTENT, USER_STATS } from "../constants/home";
-import StatCard from "../components/StatCard";
-import ProfileCard from "../components/ProfileCard";
-import Section from "../components/common/Section";
+import StatCard from "@/components/home/StatCard";
+import ProfileCard from "@/components/home/ProfileCard";
+import Section from "@/components/common/Section";
 
 export default function Home() {
   const user = useUserStore((state) => state.user);

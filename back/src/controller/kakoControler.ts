@@ -20,6 +20,7 @@ function kakaoURL(req: Request, res: Response) {
 
   console.log("/kakao/url finish");
 }
+
 async function kakaoAuthToken(req: Request, res: Response) {
   const { authCode } = req.body;
   try {
@@ -68,10 +69,10 @@ async function kakaoAuthToken(req: Request, res: Response) {
     res
       .cookie("refreshToken", newUser.tokens.refreshToken, {
         httpOnly: true,
-        secure: false, // HTTPS에서만 true
-        sameSite: "lax", // 'strict', 'lax', 'none' 중 선택
-        domain: "localhost", // 프론트엔드 도메인
-        path: "/", // 쿠키가 유효한 경로 설정
+        secure: false, // localhost 일 때만.
+        maxAge: 30 * 24 * 60 * 60 * 1000, // 30일
+        sameSite: "lax", // none 대신 lax 사용
+        path: "/",
       })
       .json({
         ok: true,
@@ -83,7 +84,31 @@ async function kakaoAuthToken(req: Request, res: Response) {
     res.status(400).json({ ok: false, error: "Authentication failed" });
   }
 }
-export { kakaoURL, kakaoAuthToken };
+
+async function kakaoTokenRefresh(refreshToken: string) {
+  try {
+    const { data } = await axios.post(
+      "https://kauth.kakao.com/oauth/token",
+      qs.stringify({
+        // qs.stringify 사용
+        grant_type: "authorization_code",
+        client_id: process.env.KAKAO_RESTAPI,
+        refresh_token: refreshToken, // 실제로는 code
+        client_secret: process.env.CLIENT_SECRET,
+      }),
+      {
+        headers: {
+          "Content-type": "application/x-www-form-urlencoded;charset=utf-8",
+        },
+      }
+    );
+    return data.access_token;
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+export { kakaoURL, kakaoAuthToken, kakaoTokenRefresh };
 
 /**
  * import { Request, Response } from "express";

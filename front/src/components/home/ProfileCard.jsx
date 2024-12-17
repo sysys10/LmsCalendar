@@ -13,7 +13,10 @@ const ProfileCard = ({ user }) => (
     <div className="relative rounded-2xl bg-background p-6">
       <div className="flex items-center gap-4">
         <img
-          src={user?.profile_image || "/api/placeholder/100/100"}
+          src={
+            user?.profile_image ||
+            "https://img1.kakaocdn.net/thumb/R110x110.q70/?fname=http://t1.kakaocdn.net/account_images/default_profile.jpeg"
+          }
           alt="Profile"
           className="h-16 w-16 rounded-full object-cover"
         />

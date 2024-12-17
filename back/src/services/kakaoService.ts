@@ -7,6 +7,10 @@ import {
   updateKakaoUser,
 } from "../utils/kakaoauth";
 import { generateAccessToken, generateRefreshToken } from "../utils/jwtUtils";
+import axios from "axios";
+import qs from "qs";
+import dotenv from "dotenv";
+dotenv.config();
 
 async function handleKakaoAuth(
   kakaoId: string,

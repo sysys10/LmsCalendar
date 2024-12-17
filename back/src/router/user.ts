@@ -8,16 +8,14 @@ const router = express.Router();
 router.post("/signup", signup);
 
 router.get("/kakao/url", kakaoURL);
-
 // router.get("/kakao/oauth", kakaoAuth);
 router.post("/kakao/oauth/auth", kakaoAuthToken);
-
 router.post("/kakao/logout", (req: Request, res: Response) => {});
 
 //로그인
 router.post("/signin", signin);
 
 //토큰들 리프래쉬
-router.post("/refresh", refresh);
+router.get("/refresh", refresh);
 
 export default router;

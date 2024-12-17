@@ -1,4 +1,4 @@
-import StatCard from "../components/StatCard";
+import StatCard from "../components/home/StatCard";
 import { USER_STATS } from "../constants/home";
 
 export default function Lme() {

@@ -1,8 +1,11 @@
-import { NextFunction, Response } from "express";
+import { NextFunction, Request, RequestHandler, Response } from "express";
 import { verifyAccessToken } from "../utils/jwtUtils";
 import RequestWithUser from "../interfaces/ResponseWithUser";
 
-export const authMiddleware = (
+interface CustomRequestHandler extends RequestHandler {
+  (req: RequestWithUser, res: Response, next: NextFunction): void;
+}
+export const authMiddleware: CustomRequestHandler = (
   req: RequestWithUser,
   res: Response,
   next: NextFunction
@@ -11,7 +14,7 @@ export const authMiddleware = (
   const token = authHeader && authHeader.split(" ")[1];
 
   if (!token) {
-    return res.status(401).send({ message: "액세스 토큰이 헤더에 없습니다." });
+    return;
   }
   try {
     const { user_id, provider } = verifyAccessToken(token);

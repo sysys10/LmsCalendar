@@ -4,10 +4,10 @@ import {
   getKakaoUrl,
   postKakaoAuthAndUserData,
   postKakaoLogout,
-} from "../api/kakaoApi";
+} from "../apis/kakaoApi";
 import useUserStore from "../stores/userStore";
 import { useNavigate } from "react-router-dom";
-import axiosInstance from "../api/axiosInstance";
+import axiosInstance from "../apis/axiosInstance";
 import useTokenStore from "../stores/tokenStore";
 
 export const useKakaoLogin = (onLoginSuccess) => {
@@ -18,11 +18,15 @@ export const useKakaoLogin = (onLoginSuccess) => {
   const urlMutation = useMutation({
     mutationFn: getKakaoUrl,
     //mutationKey: ["getKakaoUrl"], 왜 쓸까요
+
+    //성공하면 받아온 리다이렉트 url에 scope 다 합쳐서 리다이랙트
     onSuccess: (data) => {
       const scope = "profile_nickname profile_image talk_calendar";
       const url = data.url + "&scope=" + scope;
-      // 팝업 대신 현재 창에서 리다이렉트
       window.location.href = url;
+    },
+    onError: (error) => {
+      console.log("카카오톡 로그인 중 error", error); //이거 상태 변화로 최상위에서 에러메세지 관리하게 하자.
     },
   });
 
@@ -39,6 +43,7 @@ export const useKakaoLogin = (onLoginSuccess) => {
       // 2. 엑세스 토큰 저장소에 저장하기
       // 둘 중에 뭐로 하지?
 
+      // 리프레쉬는 백에서 쿠키에 저장해줌.
       setUser(userData);
       onLoginSuccess?.();
       navigate("/");
@@ -52,11 +57,9 @@ export const useKakaoLogin = (onLoginSuccess) => {
   const logoutMutation = useMutation({
     mutationFn: postKakaoLogout,
     onSuccess: () => {
-      onLogoutSuccess?.();
       navigate("/");
     },
     onError: (error) => {
-      clearUser();
       clearAccessToken();
       console.error("Logout failed:", error);
       alert("로그아웃에 실패했습니다.");

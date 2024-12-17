@@ -1,12 +1,12 @@
 import Modal from "react-modal";
 import { RiKakaoTalkFill } from "react-icons/ri";
 import InputField from "./common/InputFeild";
-import { validateLogin } from "../utils/validator";
-import useForm from "../hooks/useForm";
+import { validateLogin } from "@utils/validator";
+import useForm from "@hooks/useForm";
 import CustomButton from "./common/CustomButton";
 import { useNavigate } from "react-router-dom";
-import { useKakaoLogin } from "../hooks/useKakaoLogin";
-import { customStyles } from "./common/modal/style";
+import { useKakaoLogin } from "@hooks/useKakaoLogin";
+import { loginFormStyle } from "./common/modal/style";
 
 const LoginModal = ({ modalIsOpen, setModalIsOpen }) => {
   const navigate = useNavigate();
@@ -25,7 +25,7 @@ const LoginModal = ({ modalIsOpen, setModalIsOpen }) => {
 
   return (
     <Modal
-      style={customStyles}
+      style={loginFormStyle}
       isOpen={modalIsOpen}
       onRequestClose={() => setModalIsOpen(false)}
       shouldCloseOnOverlayClick={true}

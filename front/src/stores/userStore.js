@@ -7,13 +7,13 @@ const useUserStore = create(
       user: null,
       setUser: (user) => set({ user }),
       clearUser: () => {
-        localStorage.removeItem("user-data");
+        sessionStorage.removeItem("user-data");
         set({ user: null });
       },
     }),
     {
       name: "user-data",
-      storage: createJSONStorage(() => localStorage),
+      storage: createJSONStorage(() => sessionStorage),
     }
   )
 );

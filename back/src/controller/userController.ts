@@ -31,6 +31,7 @@ async function refresh(req: Request, res: Response) {
   if (req.headers.authorization && req.cookies.refreshToken) {
     const authToken = req.headers.authorization.split("Bearer ")[1];
     const refreshToken = req.cookies.refreshToken;
+    console.log(authToken, refreshToken);
   }
 }
 
