@@ -2,7 +2,7 @@ import { Request } from "express";
 
 interface RequestWithUser extends Request {
   user_id?: string;
-  provider?: "local" | "kakao";
+  provider?: string;
 }
 
 export default RequestWithUser;

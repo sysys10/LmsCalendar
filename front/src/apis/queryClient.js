@@ -1,14 +1,16 @@
-import { QueryClient } from "@tanstack/react-query";
+import { QueryClient } from '@tanstack/react-query'
 
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       retry: false,
+      cacheTime: 0,
+      staleTime: 0
     },
     mutations: {
-      retry: false,
-    },
-  },
-});
+      retry: false
+    }
+  }
+})
 
-export default queryClient;
+export default queryClient

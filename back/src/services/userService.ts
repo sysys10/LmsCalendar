@@ -81,8 +81,9 @@ async function signInUser(
 }
 
 const findRefreshTokenWithUserId = async (user_id: string) => {
+  console.log(user_id);
   try {
-    const user: UserType | null = await findKakaoRefreshWithUser(user_id);
+    const user = await findKakaoRefreshWithUser(user_id);
     return user?.kakao_refresh_token;
   } catch (error) {
     throw error;

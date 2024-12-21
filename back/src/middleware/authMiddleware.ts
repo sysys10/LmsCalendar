@@ -17,9 +17,8 @@ export const authMiddleware: CustomRequestHandler = (
     return;
   }
   try {
-    const { user_id, provider } = verifyAccessToken(token);
+    const { user_id } = verifyAccessToken(token);
     req.user_id = user_id;
-    req.provider = provider;
     next();
   } catch (error) {
     res.status(401).send({ message: "엑세스토큰 인증 실패" });
