@@ -6,7 +6,7 @@ import interactionPlugin from '@fullcalendar/interaction'
 import Modal from 'react-modal'
 import rrulePlugin from '@fullcalendar/rrule' // 추가
 import '../index.css'
-import useCalendarEvents from '../hooks/query/useEvents'
+import useCalendarEvents from '../hooks/query/useCalendarEvents'
 import CalendarModal from '../components/calendar/CalendarModal'
 Modal.setAppElement('#root')
 function CustomDateCell({ date, isToday, isWeekday }) {
@@ -42,11 +42,12 @@ const initialEvents = [
 ]
 
 export default function MyCalendar() {
+  const { fetchEvents, createEvent, updateEvent, deleteEvent, isLoading } =
+    useCalendarEvents()
   const calendarRef = useRef(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [selectedInfo, setSelectedInfo] = useState(null)
 
-  const { fetchEvents, isFetchEventLoading } = useCalendarEvents()
   const handleFetchEvent = async () => {
     const calendarApi = calendarRef.current?.getApi()
     if (!calendarApi) return
@@ -91,11 +92,6 @@ export default function MyCalendar() {
     setIsModalOpen(true)
   }
 
-  const handleEventClick = (clickInfo) => {
-    // 이벤트 클릭 시 상세 정보 모달
-    console.log(clickInfo.event)
-  }
-
   const handleEvents = (events) => {
     // 이벤트 목록이 변경될 때마다 호출
     console.log(events)
@@ -108,16 +104,85 @@ export default function MyCalendar() {
     calendarApi.unselect() // 선택 영역 제거
   }
 
-  const handleCreateEvent = (eventData) => {
-    const calendarApi = calendarRef.current.getApi()
-    calendarApi.addEvent({
-      title: eventData.title,
-      start: selectedInfo.startStr,
-      end: selectedInfo.endStr,
-      allDay: selectedInfo.allDay
-    })
+  const handleUpdateEvent = async (eventData, eventId) => {
+    try {
+      await updateEvent({
+        calendarId: eventId,
+        updateData: {
+          title: eventData.title,
+          start_at: eventData.start,
+          end_at: eventData.end,
+          all_day: eventData.allDay,
+          description: eventData.description,
+          repeat: eventData.repeat === 'none' ? null : eventData.repeat
+        }
+      })
 
-    handleCloseModal()
+      handleCloseModal()
+      const calendarApi = calendarRef.current.getApi()
+      await fetchEvents(calendarApi.getDate())
+    } catch (error) {
+      console.error('이벤트 수정 실패:', error)
+    }
+  }
+
+  const handleDeleteEvent = async (eventId) => {
+    try {
+      await deleteEvent(eventId)
+      handleCloseModal()
+      const calendarApi = calendarRef.current.getApi()
+      await fetchEvents(calendarApi.getDate())
+    } catch (error) {
+      console.error('이벤트 삭제 실패:', error)
+    }
+  }
+
+  const handleCreateEvent = async (eventData) => {
+    try {
+      const newEvent = {
+        title: eventData.title,
+        start_at: eventData.start,
+        end_at: eventData.end,
+        all_day: eventData.allDay,
+        description: eventData.description,
+        repeat: eventData.repeat === 'none' ? null : eventData.repeat
+      }
+
+      await createEvent(newEvent)
+      handleCloseModal()
+
+      // 현재 보이는 달의 이벤트 다시 조회
+      const calendarApi = calendarRef.current.getApi()
+      await fetchEvents(calendarApi.getDate())
+    } catch (error) {
+      console.error('이벤트 생성 실패:', error)
+      // 에러 처리 (예: 토스트 메시지)
+    }
+  }
+
+  const handleEventClick = async (clickInfo) => {
+    const event = clickInfo.event
+    setSelectedInfo({
+      ...event,
+      type: 'update'
+    })
+    setIsModalOpen(true)
+  }
+
+  const handleEventDrop = async (dropInfo) => {
+    try {
+      const event = dropInfo.event
+      await updateEvent({
+        calendarId: event.id,
+        updateData: {
+          start_at: event.start,
+          end_at: event.end
+        }
+      })
+    } catch (error) {
+      console.error('이벤트 수정 실패:', error)
+      dropInfo.revert()
+    }
   }
 
   return (
@@ -160,6 +225,8 @@ export default function MyCalendar() {
       <div className='flex-1'>
         <div className='bg-background shadow-lg overflow-hidden'>
           <FullCalendar
+            eventDrop={handleEventDrop}
+            loading={isLoading}
             ref={calendarRef}
             plugins={[
               dayGridPlugin,
@@ -200,6 +267,8 @@ export default function MyCalendar() {
         isOpen={isModalOpen}
         handleCloseModal={handleCloseModal}
         handleCreateEvent={handleCreateEvent}
+        handleUpdateEvent={handleUpdateEvent}
+        handleDeleteEvent={handleDeleteEvent}
         selectedInfo={selectedInfo}
       />
     </div>
