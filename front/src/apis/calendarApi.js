@@ -1,25 +1,30 @@
-import axiosInstance from "./axiosInstance";
+import axiosInstance from './axiosInstance'
 
-const getCalendar = async () => {
-  const { data } = await axiosInstance.get("/calendar");
-  return data;
-};
+//2024-01-01 형식
+const getCalendar = async ({ startDate, endDate }) => {
+  console.log('get 시작', startDate, endDate)
+  const { data } = await axiosInstance.get(
+    `/calendar/events?start_at=${startDate}&end_at=${endDate}`
+  )
+  return data
+}
 
 const postCalendar = async ({ newCalendar }) => {
-  const { data } = await axiosInstance.post("/calendar", newCalendar);
-  return data;
-};
+  const { data } = await axiosInstance.post('/calendar', newCalendar)
+  return data
+}
 
-/**특정 달(DATE 형식)로 받아오는 식으로 */
-const getEvent = async ({ startDate, endDate }) => {
-  const { data } = await axiosInstance.get(
-    `/calendar/events?startDate=${startDate}&endDate=${endDate}`
-  );
-  return data;
-};
+const deleteCalendar = async ({ calendarId }) => {
+  const { data } = await axiosInstance.delete(`/calendar/${calendarId}`)
+  return data
+}
 
-const postEvent = async ({ newEvent }) => {
-  const { data } = await axiosInstance.post("/calendar/event", newEvent);
-  return data;
-};
-export { getCalendar, getEvent, postCalendar, postEvent };
+const updateCalendar = async ({ calendarId, updateCalendar }) => {
+  const { data } = await axiosInstance.put(
+    `/calendar/${calendarId}`,
+    updateCalendar
+  )
+  return data
+}
+
+export { getCalendar, postCalendar, deleteCalendar, updateCalendar }

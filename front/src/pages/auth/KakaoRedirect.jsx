@@ -1,18 +1,18 @@
 // components/Auth.js
-import { useEffect } from "react";
-import { useKakaoLogin } from "../../hooks/useKakaoLogin";
+import { useEffect } from 'react'
+import { useKakaoLogin } from '../../hooks/query/useKakaoLogin'
 
 const KakaoRedirect = () => {
-  const { authenticateKakao, isAuthenticating } = useKakaoLogin();
+  const { authenticateKakao, isAuthenticating } = useKakaoLogin()
 
   useEffect(() => {
-    const authCode = new URL(window.location.href).searchParams.get("code");
+    const authCode = new URL(window.location.href).searchParams.get('code')
     if (authCode) {
-      authenticateKakao(authCode);
+      authenticateKakao(authCode)
     }
-  }, [authenticateKakao]);
+  }, [authenticateKakao])
 
-  return <div>{isAuthenticating ? "카카오톡 인증 중..." : "인증 완료"}</div>;
-};
+  return <div>{isAuthenticating ? '카카오톡 인증 중...' : '인증 완료'}</div>
+}
 
-export default KakaoRedirect;
+export default KakaoRedirect

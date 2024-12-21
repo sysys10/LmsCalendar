@@ -12,7 +12,7 @@ app.use(cookieParser()); // cookie-parser 미들웨어 추가가 필요
 
 app.use(
   cors({
-    origin: ["http://localhost:5173", "http://localhost:5173"],
+    origin: ["http://localhost:5173"],
     credentials: true,
   })
 );

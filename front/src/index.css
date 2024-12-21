@@ -5,7 +5,7 @@
 
 :root {
   /* Pretendard 폰트 import */
-  @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css");
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
 
   /* 배경색: 하양 */
   --background: 255, 255, 255;
@@ -108,4 +108,32 @@
 }
 .fc-daygrid-day-number {
   padding: 2px 0 0 0 !important;
+}
+
+/* Custom Scrollbar Styles */
+.overflow-y-auto {
+  scrollbar-width: thin;
+  scrollbar-color: #e2e8f0 transparent;
+  scroll-behavior: smooth;
+}
+
+.overflow-x-auto::-webkit-scrollbar {
+  scrollbar-color: #e2e8f0 transparent;
+}
+
+.overflow-y-auto::-webkit-scrollbar {
+  width: 4px;
+}
+
+.overflow-y-auto::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.overflow-y-auto::-webkit-scrollbar-thumb {
+  background-color: #e2e8f0;
+  border-radius: 3px;
+}
+
+.overflow-y-auto::-webkit-scrollbar-thumb:hover {
+  background-color: #cbd5e1;
 }

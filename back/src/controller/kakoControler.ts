@@ -84,16 +84,14 @@ async function kakaoAuthToken(req: Request, res: Response) {
     res.status(400).json({ ok: false, error: "Authentication failed" });
   }
 }
-
 async function kakaoTokenRefresh(refreshToken: string) {
   try {
     const { data } = await axios.post(
       "https://kauth.kakao.com/oauth/token",
       qs.stringify({
-        // qs.stringify 사용
-        grant_type: "authorization_code",
+        grant_type: "refresh_token", // authorization_code에서 변경
         client_id: process.env.KAKAO_RESTAPI,
-        refresh_token: refreshToken, // 실제로는 code
+        refresh_token: refreshToken,
         client_secret: process.env.CLIENT_SECRET,
       }),
       {
@@ -102,9 +100,11 @@ async function kakaoTokenRefresh(refreshToken: string) {
         },
       }
     );
+
     return data.access_token;
-  } catch (err) {
-    console.log(err);
+  } catch (err: any) {
+    console.error("토큰 리프레시 에러:", err.response?.data || err.message);
+    throw err; // 에러를 던져서 호출하는 쪽에서 처리할 수 있게 함
   }
 }
 

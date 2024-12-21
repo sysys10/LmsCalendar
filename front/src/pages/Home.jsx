@@ -1,62 +1,52 @@
-import { motion } from "framer-motion";
-import useUserStore from "../stores/userStore";
-import { RECOMMENDED_CONTENT, USER_STATS } from "../constants/home";
-import StatCard from "@/components/home/StatCard";
-import ProfileCard from "@/components/home/ProfileCard";
-import Section from "@/components/common/Section";
+import useUserStore from '../stores/userStore'
+import { useRef } from 'react'
+import useSearchResult from '../hooks/useSearchResult'
+import useSearch from '../hooks/useSearch'
+import useInputState from '../hooks/useInputState'
+import SearchBar from '../components/home/SearchBar'
+import AnswerSection from '../components/form/AnswerSection'
 
 export default function Home() {
-  const user = useUserStore((state) => state.user);
-
+  const user = useUserStore((state) => state.user)
+  const inputRef = useRef(null)
+  const { results, setResults, isFirstSearch } = useSearchResult()
+  const { isSearching, search, handleClear, handleSearch } = useInputState({
+    ref: inputRef
+  })
+  const {
+    mutate: searchAnswer,
+    isLoading,
+    isError
+  } = useSearch({ setResults, handleClear })
+  console.log('isFirst', isFirstSearch)
   return (
-    <div className="min-h-screen bg-background">
-      <div className="mx-auto max-w-7xl px-4 py-8">
-        <Section>
-          <ProfileCard user={user} />
-        </Section>
-
-        <Section delay={0.2}>
-          <div className="mt-8">
-            <h2 className="mb-4 text-xl font-bold text-copy-primary/70">
-              나의 활동
-            </h2>
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-              {USER_STATS.map((stat, index) => (
-                <StatCard
-                  key={stat.key}
-                  title={stat.title}
-                  value={stat.value}
-                  icon={<span className="text-2xl">{stat.icon}</span>}
-                  delay={0.3 + index * 0.1}
-                />
-              ))}
-            </div>
-          </div>
-        </Section>
-        <Section delay={0.4}>
-          <div className="mt-8">
-            <h2 className="mb-4 text-xl font-bold text-copy-primary/70">
-              todos
-            </h2>
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {RECOMMENDED_CONTENT.map((content) => (
-                <motion.div
-                  key={content.id}
-                  className="group relative aspect-video overflow-hidden rounded-xl bg-white shadow-lg dark:bg-gray-800"
-                  whileHover={{ scale: 1.02 }}
-                >
-                  <img src={"/"} alt={content.title} />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent p-6 flex items-end">
-                    <div className="text-lg font-bold text-white">
-                      <p>{content.title}</p>
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </Section>
-      </div>
+    <div className='h-[calc(100vh-5rem)] max-w-[calc(100vw-2rem)] overflow-hidden bg-background'>
+      <main className='flex-col items-center relative h-[calc(100vh-5rem)] w-full mx-auto px-2 transition-all duration-300'>
+        <AnswerSection
+          isLoading={isLoading}
+          isError={isError}
+          results={results}
+        />
+        <div
+          className={`w-full mx-auto absolute bg-background ${isFirstSearch ? 'top-1/2 -translate-y-1/3' : 'bottom-0'}`}
+        >
+          {isFirstSearch && (
+            <h1 className='text-center text-xl font-semibold text-secondary mb-20'>
+              mainTitle
+            </h1>
+          )}
+          <SearchBar
+            setResults={setResults}
+            isSearching={isSearching}
+            search={search}
+            handleClear={handleClear}
+            handleSearch={handleSearch}
+            inputRef={inputRef}
+            searchAnswer={searchAnswer}
+            isFirstSearch={isFirstSearch}
+          />
+        </div>
+      </main>
     </div>
-  );
+  )
 }
